@@ -3,3 +3,17 @@
 //
 
 #include "node.h"
+
+
+namespace wsn {
+
+    namespace model {
+
+        Node::~Node() {
+
+            delete location;
+            delete link;
+        }
+    }
+
+}

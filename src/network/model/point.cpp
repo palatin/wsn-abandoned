@@ -4,10 +4,17 @@
 
 #include "point.h"
 
-Point::Point(float *x, float *y) : x(x), y(y) {
-}
 
-float Point::distanceBetweenPoints(float first, float second) {
-    //TODO euclidean metric
-    return 0;
+namespace wsn {
+
+    namespace model {
+
+        Point::Point(float *x, float *y) : x(x), y(y) {
+        }
+
+        float Point::distanceBetweenPoints(float first, float second) {
+            //TODO euclidean metric
+            return 0;
+        }
+    }
 }
