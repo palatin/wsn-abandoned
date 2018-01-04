@@ -22,8 +22,8 @@ namespace wsn {
             void loadNetwork(std::vector<wsn::model::Node> nodes);
             void startNetwork();
 
-
         };
+
 
     }
 }

@@ -6,6 +6,7 @@
 
 #include "../model/node.h"
 #include "../model/nodes.h"
+#include "../util/geometry.h"
 #include <vector>
 
 
@@ -19,6 +20,9 @@ namespace wsn {
         class WSNLinkerController {
 
             virtual   void bindNodes(wsn::model:: Nodes &nodes) =0;
+
+        protected:
+            wsn::util::Geometry *geometry;
 
         };
     }

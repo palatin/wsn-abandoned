@@ -13,15 +13,18 @@ namespace wsn {
 
         struct Nodes {
 
-
+            Nodes(std::vector<Node*> &nodes);
 
             unsigned long nodeCounts();
 
-            Node* getNodeById(unsigned int id);
+            Node& getNodeById(unsigned long id);
 
+            Nodes getNodesByType(NodeType type);
 
+            std::vector<Node> &getNodes();
 
-            std::vector<Node*> &nodes;
+        private:
+            std::vector<Node> &nodes;
 
         };
 

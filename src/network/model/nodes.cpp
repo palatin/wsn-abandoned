@@ -3,8 +3,8 @@
 
 
 
-wsn::model::Node *wsn::model::Nodes::getNodeById(unsigned int id) {
-    //TODO
+wsn::model::Node &wsn::model::Nodes::getNodeById(unsigned long id) {
+
     return nodes.at(id);
 }
 
