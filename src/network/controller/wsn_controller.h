@@ -18,7 +18,7 @@ namespace wsn {
         class WSNController {
 
         public:
-            void WSNController()
+            WSNController();
             void loadNetwork(std::vector<wsn::model::Node> nodes);
             void startNetwork();
 
