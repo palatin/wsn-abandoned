@@ -3,6 +3,7 @@
 #include "wsn_cluster_tree_linker_controller.h"
 #include "../util/array_helper.h"
 
+
 void wsn::controller::WSNClusterTreeLinkerController::bindNodes(wsn::model::Nodes &nodes) {
     clustering(nodes);
 }
@@ -23,7 +24,7 @@ void wsn::controller::WSNClusterTreeLinkerController::clustering(wsn::model::Nod
         }
 
         const auto *ptr = distances;
-        auto index = wsn::util::ArrayHelper::getSmallestElementIndex(ptr , clusterHeadNodesArray.size());
+        auto index =  std::get<0>(wsn::util::ArrayHelper::getSmallestElement(ptr , clusterHeadNodesArray.size()));
         wsn::model::NodeLink link(&clusterHeadNodesArray.at(index), distances[index]);
         node.setLink(link);
 

@@ -5,6 +5,7 @@
 
 
 #include <stdexcept>
+#include<tuple>
 
 namespace wsn {
 
@@ -15,14 +16,17 @@ namespace wsn {
         public:
 
             template<typename T>
-            static unsigned long  getSmallestElementIndex(const T *array, unsigned long arrlen);
+            static std::tuple<unsigned long, T*> getSmallestElement(const T *array, unsigned long arrlen);
+
+            template<typename T>
+            static std::tuple<unsigned long, T*> getBiggestElement(const T *array, unsigned long arrlen);
 
         };
 
 
 
         template<typename T>
-        unsigned long  ArrayHelper::getSmallestElementIndex(const T *array, unsigned long  arrlen) {
+        std::tuple<unsigned long, T*> ArrayHelper::getSmallestElement(const T *array, unsigned long  arrlen) {
 
             if (arrlen < 1)
                 throw std::invalid_argument("empty array");
@@ -40,7 +44,30 @@ namespace wsn {
                 }
             }
 
-            return index;
+            return {index, smallest};
+
+        }
+
+        template<typename T>
+        std::tuple<unsigned long, T*> ArrayHelper::getBiggestElement(const T *array, unsigned long  arrlen) {
+
+            if (arrlen < 1)
+                throw std::invalid_argument("empty array");
+
+            const T *arrcopy = array;
+
+            T biggest = *array;
+
+            unsigned long  index = 0;
+
+            for (unsigned int i = 1; i < arrlen - 1; i++, arrcopy++) {
+                if (biggest < *array) {
+                    biggest = *array;
+                    index = i;
+                }
+            }
+
+            return {index, biggest};
 
         }
     }
