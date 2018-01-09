@@ -8,18 +8,16 @@
 
 namespace wsn {
     namespace model {
-
-
-        struct Point {
+        class Point {
 
         public:
-            Point(float x, float y);
+            Point(float *x, float *y);
 
-
+            float distanceBetweenPoints(float first, float second);
 
         private:
-            float x;
-            float y;
+            float *x;
+            float *y;
         };
 
     }
