@@ -13,7 +13,7 @@ namespace wsn {
 
     namespace model {
 
-        enum {
+        enum  NodeType{
             simple, cluster_head, sink
         };
 
@@ -21,11 +21,16 @@ namespace wsn {
 
         public:
             ~Node();
+            const Point& getPoint();
+            void setLink(NodeLink link);
+
+            NodeType  type;
 
         private:
-            Point *location;
+            Point location;
             float energy;
-            NodeLink *link;
+            NodeLink link;
+
         };
 
     }
