@@ -13,8 +13,6 @@ namespace wsn {
 
         struct NodeLink {
 
-            NodeLink(Node* link, float distance);
-
             Node *link;
             float distance;
 

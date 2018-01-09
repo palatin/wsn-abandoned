@@ -11,12 +11,8 @@ namespace wsn {
 
         Node::~Node() {
 
-            //delete location;
-            //delete link;
-        }
-
-        const Point &Node::getPoint() {
-            return location;
+            delete location;
+            delete link;
         }
     }
 
