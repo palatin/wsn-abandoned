@@ -21,7 +21,7 @@ namespace wsn {
 
         public:
             ~Node();
-             const Point& getPoint();
+            const Point& getPoint();
             void setLink(NodeLink link);
 
             NodeType  type;
