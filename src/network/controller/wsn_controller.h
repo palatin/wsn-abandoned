@@ -7,7 +7,7 @@
 
 
 #include <vector>
-#include "../model/node.h"
+#include "../model/node/node.h"
 
 
 

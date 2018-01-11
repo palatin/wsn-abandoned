@@ -5,7 +5,7 @@
 
 
 #include <vector>
-#include "node.h"
+#include "node/node.h"
 
 
 //struct that stored vector of node pointers

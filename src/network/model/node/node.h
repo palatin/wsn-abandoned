@@ -6,7 +6,7 @@
 #define WSN_NODE_H
 
 
-#include "point.h"
+#include "../point.h"
 #include "node_link.h"
 
 namespace wsn {
