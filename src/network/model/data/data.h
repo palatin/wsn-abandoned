@@ -12,7 +12,7 @@ namespace wsn {
         class Data {
 
         public:
-            double getDataLength();
+            double getDataLength() const;
 
 
         private:
@@ -23,9 +23,6 @@ namespace wsn {
 
         };
 
-        double Data::getDataLength() {
-            return bytes;
-        }
 
 
     }
