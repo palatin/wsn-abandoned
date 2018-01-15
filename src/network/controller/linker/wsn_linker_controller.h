@@ -4,7 +4,7 @@
 #define WSN_WSN_LINKER_CONTROLLER_H
 
 
-#include "../../model/node.h"
+#include "../../model/node/node.h"
 #include "../../model/nodes.h"
 #include "../../util/geometry.h"
 #include <vector>
