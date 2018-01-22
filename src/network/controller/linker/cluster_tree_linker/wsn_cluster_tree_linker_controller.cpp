@@ -14,10 +14,10 @@ void wsn::controller::linker::WSNClusterTreeLinkerController::linkNodes(wsn::mod
     auto clusters = clusteringController->clusterize(nodes);
 
     for(auto &cluster : clusters) {
-        wsn::model::Node *ch = cluster.ch;
-        for(auto &node : cluster.nodes.getNodes()) {
-            node->setLink(wsn::model::NodeLink(ch, geometry.get()->distanceBetweenPoints(node->getPoint(), ch->getPoint())));
-        }
+        const wsn::model::Node *ch = cluster.ch;
+        //for(auto &node : cluster.nodes.getNodes()) {
+            //node->setLink(wsn::model::NodeLink(ch, geometry.get()->distanceBetweenPoints(node->getPoint(), ch->getPoint())));
+        //}
     }
 }
 
