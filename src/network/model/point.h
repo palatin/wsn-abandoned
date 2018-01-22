@@ -15,9 +15,6 @@ namespace wsn {
         public:
             Point(float x, float y);
 
-
-
-        private:
             float x;
             float y;
         };

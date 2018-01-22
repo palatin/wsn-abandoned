@@ -25,9 +25,9 @@ namespace wsn {
             Node& getNodeById(unsigned long id);
 
             //todo reference vs object
-            Nodes getNodesByType(NodeType type);
+            //Nodes getNodesByType(NodeType type);
 
-            std::vector<Node*> &getNodes();
+            std::vector<Node*> &getNodes() const;
 
         private:
             std::vector<Node*> &nodes;

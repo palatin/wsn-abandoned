@@ -31,3 +31,7 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
+set(node_test_source ./network/model/node/node_test.cpp)
+add_executable(tests ${node_test_source})
+target_link_libraries(tests gtest WSN)
+add_test(NAME node_test COMMAND node_test)
