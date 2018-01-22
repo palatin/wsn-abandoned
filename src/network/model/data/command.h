@@ -5,21 +5,27 @@
 
 
 #include "data.h"
-#include "../node/node.h"
+
 
 namespace wsn {
 
     namespace model {
 
-        namespace command {
+        //forward declaration
+        class Node;
 
-            class Command : Data {
 
-                virtual void execute(Node *node) = 0;
+        class Command : public Data {
 
-            };
+        public:
+            Command(Node *sender, Node *receiver, double dataLength);
+            virtual ~Command() = default;
 
-        }
+        private:
+            //virtual void execute(Node *node) = 0;
+
+        };
+
 
     }
 }

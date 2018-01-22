@@ -12,8 +12,8 @@ namespace wsn {
         namespace linker {
 
             struct WSNCluster {
-                wsn::model::Node *ch;
-                wsn::model::Nodes nodes;
+                const wsn::model::Node *ch;
+                const wsn::model::Nodes nodes;
             };
 
             class ClusteringController {
