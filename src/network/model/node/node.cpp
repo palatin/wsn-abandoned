@@ -8,7 +8,7 @@ namespace wsn {
     namespace model {
 
 
-        Node::Node(unsigned long id, Point location, float energy, double memoryLimit) : id(id), location(location), energy(energy), memoryLimit(memoryLimit) {
+        Node::Node(unsigned long id, Point location, double energy, float memoryLimit) : id(id), location(location), energy(energy), memoryLimit(memoryLimit) {
 
         }
 
@@ -20,20 +20,28 @@ namespace wsn {
             return id;
         }
 
-        float Node::getEnergy() const {
+        double Node::getEnergy() const {
             return energy;
         }
 
-        Point Node::getPoint() const {
+        Point Node::getLocation() const {
             return location;
         }
 
-        double Node::getMemoryLimit() const {
+        float Node::getMemoryLimit() const {
             return memoryLimit;
         }
 
-        double Node::getCurrentMemory() const {
+        float Node::getCurrentMemory() const {
             return currentMemory;
+        }
+
+
+        void Node::setEnergy(double energy) {
+            this->energy = energy;
+            if(this->energy < 0) {
+                //TODO notify about dead
+            }
         }
 
         bool Node::addLink(NodeLink link) {
@@ -44,12 +52,14 @@ namespace wsn {
 
 
 
-        bool Node::receiveData(const Data &data) const {
+
+        bool Node::receiveData(const Data &data) {
+
             return this->processData(data);
         }
 
 
-        bool Node::processData(const Data &data) const {
+        bool Node::processData(const Data &data) {
 
             if(!canStore(data.getDataLength()))
                 return false;
@@ -77,7 +87,6 @@ namespace wsn {
         const std::deque<wsn::model::Data> &Node::getData() const {
             return dataDeque;
         }
-
 
     }
 

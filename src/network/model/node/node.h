@@ -12,11 +12,26 @@
 
 #include "node_link.h"
 #include "../data/data.h"
-#include "../../protocol/network_protocol.h"
+
 #include "../data/command.h"
 
 
 namespace wsn {
+
+    namespace protocol {
+        namespace  network {
+            template <class NodeType>
+            class NetworkProtocol;
+        }
+    }
+
+    namespace controller {
+        namespace  physics {
+            template <class NodeType>
+            class PhysicsController;
+        }
+    }
+
 
     namespace model {
 
@@ -27,17 +42,16 @@ namespace wsn {
         public:
             //NodeType  type;
 
-            Node(unsigned long id, Point location, float energy, double memoryLimit);
+            Node(unsigned long id, Point location, double energy, float memoryLimit);
             ~Node();
 
             unsigned long getID() const;
-            Point getPoint() const;
-            float getEnergy() const;
-            double getMemoryLimit() const;
-            double getCurrentMemory() const;
+            Point getLocation() const;
+            double getEnergy() const;
+            float getMemoryLimit() const;
+            float getCurrentMemory() const;
 
 
-            //void step(long time);
             inline bool operator==(const Node &node) const {
                 return this->id == node.id;
             }
@@ -46,25 +60,29 @@ namespace wsn {
 
         private:
             unsigned long id = 0;
-            Point location;
-            float energy = 0;
+            const Point location;
+            double energy = 0;
             std::vector<NodeLink> links;
-            mutable std::deque<wsn::model::Data> dataDeque;
-            mutable std::vector<wsn::model::Command> commands;
+            std::deque<wsn::model::Data> dataDeque;
+            std::vector<wsn::model::Command> commands;
             //memory that node can store in bytes
-            double memoryLimit = 0;
-            mutable double currentMemory = 0;
-
-
+            const float memoryLimit;
+            float currentMemory = 0;
             bool addLink(NodeLink link);
             //bool sendData(const Data &data, Node *receiver) const;
             const std::deque<wsn::model::Data>& getData() const;
             const std::vector<wsn::model::Command>& getCommands() const;
-            bool receiveData(const Data &data) const;
-            bool processData(const Data &data) const;
+            bool receiveData(const Data &data);
+            bool processData(const Data &data);
             bool canStore(double dataSize) const;
+            void setEnergy(double energy);
 
-            friend wsn::protocol::network::NetworkProtocol;
+
+            template <typename NodeType>
+            friend class wsn::protocol::network::NetworkProtocol;
+
+            template <typename NodeType>
+            friend class wsn::controller::physics::PhysicsController;
 
 
         };
