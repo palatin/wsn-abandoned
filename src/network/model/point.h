@@ -1,6 +1,4 @@
-//
-// Created by Игорь on 30.12.2017.
-//
+
 
 #ifndef WSN_POINT_H
 #define WSN_POINT_H
@@ -13,10 +11,11 @@ namespace wsn {
         struct Point {
 
         public:
-            Point(float x, float y);
+            Point(float x, float y, float z);
 
             float x;
             float y;
+            float z;
         };
 
     }

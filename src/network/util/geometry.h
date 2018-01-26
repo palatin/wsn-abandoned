@@ -13,7 +13,8 @@ namespace wsn {
         class Geometry {
 
         public:
-            virtual float distanceBetweenPoints(const wsn::model::Point &first, const wsn::model::Point &second);
+            Geometry() = default;
+            virtual double distanceBetweenPoints(const wsn::model::Point &first, const wsn::model::Point &second) const = 0;
 
         };
     }

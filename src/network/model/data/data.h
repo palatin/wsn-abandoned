@@ -16,13 +16,13 @@ namespace wsn {
         class Data {
 
         public:
-            /*
-            //Data class will not obtain and manage memory of data array
-            Data(Node *sender, Node *receiver, const unsigned char *const data, size_t dataLength);
-            Data(const Data &data);
-             */
-            Data(const Node *sender, const Node *receiver, double dataLength);
+            ///
+            /// @param sender - data sender node
+            /// @param receiver -data receiver node
+            /// @param dataLength - data length in bits
+            Data(const Node *sender, const Node *receiver, unsigned long dataLength);
             virtual ~Data() = default;
+
 
             double getDataLength() const;
             const Node* getSender() const;
@@ -32,7 +32,8 @@ namespace wsn {
         private:
             const Node *sender;
             const Node *receiver;
-            double length = 0;
+            ///data length in bits
+            unsigned long length = 0;
 
 
         };
