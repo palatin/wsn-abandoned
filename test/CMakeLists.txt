@@ -30,8 +30,13 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif()
 
-# Now simply link against gtest or gtest_main as needed. Eg
+#test linking area
+
 set(node_test_source ./network/model/node/node_test.cpp)
-add_executable(tests ${node_test_source})
+set(physics_controller_test_source network/controller/physics_controller_test.cpp)
+set(euclid_geometry_test_source network/util/euclid_geometry_test.cpp)
+add_executable(tests ${node_test_source}
+                     ${physics_controller_test_source}
+                     ${euclid_geometry_test_source})
 target_link_libraries(tests gtest WSN)
-add_test(NAME node_test COMMAND node_test)
+#add_test(NAME node_test COMMAND node_test)
