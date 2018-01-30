@@ -16,6 +16,7 @@ namespace wsn {
 
             NodeLink(Node* link, float distance);
 
+
             Node *link;
             float distance;
 
