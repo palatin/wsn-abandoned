@@ -5,11 +5,11 @@
 
 
 #include <vector>
+#include <memory>
 #include "node/node.h"
 
 
-//struct that stored vector of node pointers
-//this container is not responsible for release nodes memory
+
 namespace wsn {
 
     namespace model {
@@ -17,20 +17,24 @@ namespace wsn {
         struct Nodes {
 
         public:
-            Nodes(std::vector<Node*> &nodes);
+            Nodes() = default;
+
+            explicit Nodes(std::vector<std::unique_ptr<Node>> &nodes);
             ~Nodes();
 
+
+            void addNode(std::unique_ptr<Node> node);
             unsigned long nodeCounts();
 
             Node& getNodeById(unsigned long id);
 
-            //todo reference vs object
-            //Nodes getNodesByType(NodeType type);
+            Node &at(unsigned long number);
 
-            std::vector<Node*> &getNodes() const;
+            const Node &at(unsigned long number) const;
 
         private:
-            std::vector<Node*> &nodes;
+            std::vector<std::unique_ptr<Node>> nodes;
+
 
         };
 

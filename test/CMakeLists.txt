@@ -34,9 +34,11 @@ endif()
 
 set(node_test_source ./network/model/node/node_test.cpp)
 set(physics_controller_test_source network/controller/physics_controller_test.cpp)
-set(euclid_geometry_test_source network/util/euclid_geometry_test.cpp)
+set(euclid_geometry_test_source network/util/euclid_geometry_test.cpp network/model/nodes_test.cpp)
+set(nodes_test_source network/model/nodes_test.cpp)
 add_executable(tests ${node_test_source}
                      ${physics_controller_test_source}
-                     ${euclid_geometry_test_source})
+                     ${euclid_geometry_test_source}
+                     ${nodes_test_source})
 target_link_libraries(tests gtest WSN)
 #add_test(NAME node_test COMMAND node_test)
