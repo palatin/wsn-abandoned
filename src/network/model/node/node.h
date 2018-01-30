@@ -35,7 +35,9 @@ namespace wsn {
 
     namespace model {
 
-
+        typedef std::vector<NodeLink> Links;
+        typedef std::vector<wsn::model::Command> Commands;
+        typedef std::deque<wsn::model::Data> DataList;
 
         class Node {
 
@@ -43,6 +45,7 @@ namespace wsn {
             //NodeType  type;
 
             Node(unsigned long id, Point location, double energy, float memoryLimit);
+            Node(Node &&node) noexcept;
             ~Node();
 
             unsigned long getID() const;
@@ -62,16 +65,19 @@ namespace wsn {
             unsigned long id = 0;
             const Point location;
             double energy = 0;
-            std::vector<NodeLink> links;
+            Links links;
             std::deque<wsn::model::Data> dataDeque;
             std::vector<wsn::model::Command> commands;
-            //memory that node can store in bytes
             const float memoryLimit;
             float currentMemory = 0;
-            bool addLink(NodeLink link);
-            //bool sendData(const Data &data, Node *receiver) const;
-            const std::deque<wsn::model::Data>& getData() const;
-            const std::vector<wsn::model::Command>& getCommands() const;
+
+            Node(Node &node);
+            Node& operator=(Node &node);
+            bool addLink(const NodeLink &link);
+            const Links& getLinks() const;
+            void removeLink(unsigned long position);
+            const DataList& getData() const;
+            const Commands& getCommands() const;
             bool receiveData(const Data &data);
             bool processData(const Data &data);
             bool canStore(double dataSize) const;

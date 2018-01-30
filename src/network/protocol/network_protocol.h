@@ -17,6 +17,7 @@ namespace wsn {
     namespace model {
         //forward declaration to wsn::model::Node
         class Node;
+        class NodeLink;
 
 
     }
@@ -25,8 +26,15 @@ namespace wsn {
 
         namespace network {
 
+
+
             using model::Data;
             using model::Node;
+            using model::NodeLink;
+
+            typedef std::vector<NodeLink> Links;
+            typedef std::vector<wsn::model::Command> Commands;
+            typedef std::deque<wsn::model::Data> DataList;
 
             template <typename NodeType>
             class NetworkProtocol {
@@ -48,18 +56,32 @@ namespace wsn {
                     return this->physicsControllerPtr.get()->receiveData(data, receiver);
                 }
 
-                const std::vector<wsn::model::Command>& getCommands(const Node *node) const {
-                    return node->getCommands();
+                const Links& getLinks(const Node &node) const {
+                    return node.getLinks();
                 }
 
-                const std::deque<wsn::model::Data>& getData(const Node *node) const {
-                    return node->getData();
+                bool addLink(Node &node, const wsn::model::NodeLink &link) {
+                    return node.addLink(link);
                 }
+
+                void removeLink(Node &node, unsigned long position) {
+                    return node.removeLink(position);
+                }
+
+                const Commands& getCommands(const Node &node) const {
+                    return node.getCommands();
+                }
+
+                const DataList& getData(const Node &node) const {
+                    return node.getData();
+                }
+
 
 
             private:
                 const std::shared_ptr<wsn::controller::physics::PhysicsController<NodeType>> physicsControllerPtr;
             };
+
 
 
         }
