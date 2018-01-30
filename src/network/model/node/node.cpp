@@ -12,6 +12,17 @@ namespace wsn {
 
         }
 
+        Node::Node(Node &&node) noexcept : location(node.location), memoryLimit(node.memoryLimit)  {
+            this->energy = node.energy;
+            node.energy = 0;
+            this->id = node.id;
+            node.id = 0;
+            this->commands = std::move(node.commands);
+            this->dataDeque = std::move(node.dataDeque);
+            this->links = std::move(links);
+
+        }
+
         Node::~Node() {
 
         }
@@ -44,10 +55,11 @@ namespace wsn {
             }
         }
 
-        bool Node::addLink(NodeLink link) {
+        bool Node::addLink(const NodeLink &link) {
             if(!canStore(NODE_LINK_MEMORY))
                 return false;
             this->links.push_back(link);
+            return true;
         }
 
 
@@ -77,16 +89,27 @@ namespace wsn {
 
 
         bool Node::canStore(double dataSize) const {
-            return dataSize + currentMemory < memoryLimit;
+            return dataSize + currentMemory <= memoryLimit;
         }
 
-        const std::vector<wsn::model::Command> &Node::getCommands() const{
+        const Links& Node::getLinks() const {
+            return links;
+        }
+
+        void Node::removeLink(unsigned long position) {
+            links.erase(links.begin() + position);
+            currentMemory -= NODE_LINK_MEMORY;
+        }
+
+        const Commands& Node::getCommands() const{
             return commands;
         }
 
-        const std::deque<wsn::model::Data> &Node::getData() const {
+        const DataList& Node::getData() const {
             return dataDeque;
         }
+
+
 
     }
 
