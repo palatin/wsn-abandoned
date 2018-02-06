@@ -11,6 +11,8 @@
 #include "../model/data/data.h"
 #include "../model/data/command.h"
 #include "../controller/physics/physics_controller.h"
+#include "../core/wsn_component.h"
+#include "../model/nodes.h"
 
 namespace wsn {
 
@@ -37,17 +39,22 @@ namespace wsn {
             typedef std::deque<wsn::model::Data> DataList;
 
             template <typename NodeType>
-            class NetworkProtocol {
+            class NetworkProtocol : public wsn::core::WSNComponent {
+
+                typedef std::shared_ptr<wsn::model::Nodes<NodeType>> NodesPtr;
 
             public:
 
-                explicit NetworkProtocol(std::shared_ptr<wsn::controller::physics::PhysicsController<NodeType>> physicsController) : physicsControllerPtr(std::move(physicsController)) {}
+                explicit NetworkProtocol(std::shared_ptr<wsn::controller::physics::PhysicsController<NodeType>> physicsController, NodesPtr nodesPtr)
+                        : physicsControllerPtr(std::move(physicsController)), nodes(std::move(nodes)) {}
                 virtual ~NetworkProtocol() = default;
 
-                virtual void step(long time) = 0;
+                virtual void update() = 0;
 
 
             protected:
+                NodesPtr nodes;
+
                 bool sendData(const Data &data, NodeType &sender, NodeType &receiver) const {
                     return this->physicsControllerPtr.get()->sendData(data, sender, receiver);
                 }

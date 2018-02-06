@@ -14,26 +14,43 @@ namespace wsn {
 
     namespace model {
 
+
+        template <typename NodeType>
         struct Nodes {
 
         public:
+
             Nodes() = default;
 
-            explicit Nodes(std::vector<std::unique_ptr<Node>> &nodes);
-            ~Nodes();
+             explicit Nodes(std::vector<std::unique_ptr<NodeType>> &node) : nodes(std::move(nodes)) {}
+
+            ~Nodes() {
+
+            }
 
 
-            void addNode(std::unique_ptr<Node> node);
-            unsigned long nodeCounts();
+            void addNode(std::unique_ptr<NodeType> node) {
+                nodes.push_back(std::move(node));
+            }
 
-            Node& getNodeById(unsigned long id);
+            unsigned long nodeCounts() {
+                return nodes.size();
+            }
 
-            Node &at(unsigned long number);
+            NodeType& getNodeById(unsigned long id) {
+                return *nodes.at(id);
+            }
 
-            const Node &at(unsigned long number) const;
+            NodeType &at(unsigned long number) {
+                return *nodes.at(number);
+            }
+
+            const NodeType &at(unsigned long number) const {
+                return *nodes.at(number);
+            }
 
         private:
-            std::vector<std::unique_ptr<Node>> nodes;
+            std::vector<std::unique_ptr<NodeType>> nodes;
 
 
         };

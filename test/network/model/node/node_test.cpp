@@ -13,7 +13,7 @@ namespace wsn {
 
         public:
             explicit NetworkProtocolTest(const std::shared_ptr<controller::physics::PhysicsController<Node>> physicsController)
-                    : NetworkProtocol(physicsController) {
+                    : NetworkProtocol(physicsController, nullptr) {
             }
 
             bool testSend(const Data &data, Node &sender, Node &receiver) {
@@ -40,7 +40,7 @@ namespace wsn {
                 return this->getData(node);
             }
 
-            void step(long time) override {
+            void update() override {
 
             }
 

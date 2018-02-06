@@ -12,14 +12,14 @@ namespace wsn {
 
         protected:
             void SetUp() override {
-                this->nodes = new Nodes();
+                this->nodes = new Nodes<Node>();
             }
 
             void TearDown() override {
                 delete nodes;
             }
 
-            Nodes *nodes;
+            Nodes<Node> *nodes;
 
         };
 
