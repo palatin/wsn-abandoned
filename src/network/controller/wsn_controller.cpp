@@ -2,11 +2,14 @@
 
 #include "wsn_controller.h"
 
+wsn::controller::WSNController::~WSNController() {
+    stop();
+}
+
 
 void wsn::controller::WSNController::addComponent(wsn::controller::WSNComponentPtr component) {
     stop();
     wsnComponents.push_back(std::move(component));
-    start();
 }
 
 void wsn::controller::WSNController::start() {
@@ -17,8 +20,10 @@ void wsn::controller::WSNController::start() {
 }
 
 void wsn::controller::WSNController::stop() {
-    isRunning = false;
-    updateThread.join();
+    if(isRunning) {
+        isRunning = false;
+        updateThread.join();
+    }
 }
 
 void wsn::controller::WSNController::setUpdateSpeed(float speed) {
@@ -39,6 +44,7 @@ void wsn::controller::WSNController::update() {
     }
 
 }
+
 
 
 

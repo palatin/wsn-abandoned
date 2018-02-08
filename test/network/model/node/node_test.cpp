@@ -17,7 +17,7 @@ namespace wsn {
             }
 
             bool testSend(const Data &data, Node &sender, Node &receiver) {
-                return this->sendData(data, sender, receiver) && this->receiveData(data, sender, receiver);
+                return this->sendData(data, sender, receiver) && this->receiveData(data, receiver);
             }
 
             bool testAddLink(Node &node, const wsn::model::NodeLink &link) {

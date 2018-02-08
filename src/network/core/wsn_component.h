@@ -1,6 +1,4 @@
-//
-// Created by palatin on 2/5/18.
-//
+
 
 #ifndef WSN_WSNCOMPONENT_H
 #define WSN_WSNCOMPONENT_H

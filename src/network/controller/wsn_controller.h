@@ -27,7 +27,8 @@ namespace wsn {
         class WSNController {
 
         public:
-            WSNController();
+            WSNController() = default;
+            ~WSNController();
 
             void addComponent(WSNComponentPtr component);
             void start();
@@ -44,7 +45,7 @@ namespace wsn {
         private:
             WSNComponents wsnComponents;
             std::thread updateThread;
-            std::atomic<bool> isRunning;
+            std::atomic<bool> isRunning = false;
             std::atomic<float> updateSpeed = 0;
 
             void update();
