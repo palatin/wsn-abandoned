@@ -33,7 +33,6 @@ namespace wsn {
 
                 /// Method that calculate energy dissipation for sending data from sender to receiver
                 /// and call @method receiveDataByNode
-                ///
                 /// @param data
                 /// @param sender
                 /// @param receiver
