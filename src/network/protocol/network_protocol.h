@@ -59,7 +59,7 @@ namespace wsn {
                     return this->physicsControllerPtr.get()->sendData(data, sender, receiver);
                 }
 
-                bool receiveData(const Data &data, NodeType &sender, NodeType &receiver) const {
+                bool receiveData(const Data &data, NodeType &receiver) const {
                     return this->physicsControllerPtr.get()->receiveData(data, receiver);
                 }
 
