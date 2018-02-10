@@ -23,21 +23,18 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
         ${CMAKE_BINARY_DIR}/test/googletest-build
         EXCLUDE_FROM_ALL)
 
-# The gtest/gtest_main targets carry header search path
-# dependencies automatically when using CMake 2.8.11 or
-# later. Otherwise we have to add them here ourselves.
-if (CMAKE_VERSION VERSION_LESS 2.8.11)
-    include_directories("${gtest_SOURCE_DIR}/include")
-endif()
+
+include_directories("${gtest_SOURCE_DIR}/include")
+
 
 #test linking area
 
-set(node_test_source ./network/model/node/node_test.cpp)
-set(physics_controller_test_source network/controller/physics_controller_test.cpp)
-set(euclid_geometry_test_source network/util/euclid_geometry_test.cpp)
-set(nodes_test_source network/model/nodes_test.cpp)
-set(notification_test_source network/notification/notification_test.cpp)
-set(wsn_controller_test_source network/controller/wsn_controller_test.cpp)
+set(node_test_source model/node/node_test.cpp)
+set(physics_controller_test_source controller/physics_controller_test.cpp)
+set(euclid_geometry_test_source util/euclid_geometry_test.cpp)
+set(nodes_test_source model/nodes_test.cpp)
+set(notification_test_source notification/notification_test.cpp)
+set(wsn_controller_test_source controller/wsn_controller_test.cpp)
 add_executable(tests ${node_test_source}
                      ${physics_controller_test_source}
                      ${euclid_geometry_test_source}
