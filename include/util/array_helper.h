@@ -16,58 +16,56 @@ namespace wsn {
         public:
 
             template<typename T>
-            static std::tuple<unsigned long, T*> getSmallestElement(const T *array, unsigned long arrlen);
+            static std::tuple<unsigned long, T*> getSmallestElement(T *array, unsigned long arrlen);
 
             template<typename T>
-            static std::tuple<unsigned long, T*> getBiggestElement(const T *array, unsigned long arrlen);
+            static std::tuple<unsigned long, T*> getBiggestElement(T *array, unsigned long arrlen);
 
         };
 
-
-
         template<typename T>
-        std::tuple<unsigned long, T*> ArrayHelper::getSmallestElement(const T *array, unsigned long  arrlen) {
+        std::tuple<unsigned long, T*> ArrayHelper::getSmallestElement(T *array, unsigned long  arrlen) {
 
             if (arrlen < 1)
                 throw std::invalid_argument("empty array");
 
-            const T *arrcopy = array;
+            T *arrcopyPtr = array + 1;
 
-            T smallest = *array;
+            T *smallest = array;
 
             unsigned long  index = 0;
 
-            for (unsigned int i = 1; i < arrlen - 1; i++, arrcopy++) {
-                if (smallest > *array) {
-                    smallest = *array;
+            for (unsigned int i = 1; i < arrlen; i++, arrcopyPtr++) {
+                if (*smallest > *arrcopyPtr) {
+                    smallest = array;
                     index = i;
                 }
             }
-
-            return {index, smallest};
+            auto value = std::make_tuple(index, smallest);
+            return value;
 
         }
 
         template<typename T>
-        std::tuple<unsigned long, T*> ArrayHelper::getBiggestElement(const T *array, unsigned long  arrlen) {
+        std::tuple<unsigned long, T*> ArrayHelper::getBiggestElement(T *array, unsigned long  arrlen) {
 
             if (arrlen < 1)
                 throw std::invalid_argument("empty array");
 
-            const T *arrcopy = array;
+            T *arrcopyPtr = array + 1;
 
-            T biggest = *array;
+            T *biggest = array;
 
             unsigned long  index = 0;
 
-            for (unsigned int i = 1; i < arrlen - 1; i++, arrcopy++) {
-                if (biggest < *array) {
-                    biggest = *array;
+            for (unsigned int i = 1; i < arrlen; i++, arrcopyPtr++) {
+                if (*biggest < *array) {
+                    biggest = array;
                     index = i;
                 }
             }
-
-            return {index, biggest};
+            auto value = std::make_tuple(index, biggest);
+            return value;
 
         }
     }
