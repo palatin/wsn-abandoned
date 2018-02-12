@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <thread>
-#include "../../include/notification/event.h"
+#include <notification/event/node_death_event.h>
+#include "notification/event/event.h"
 
 
 #include "../../include/notification/observer.h"
@@ -17,7 +18,7 @@ namespace wsn {
         class MockObserver :  public Observer {
 
         public:
-            MOCK_METHOD2(handleEvent, void(wsn::notification::Event event, const void* const sender));
+            MOCK_METHOD1(handleEvent, void(const Event &event));
 
         };
 
@@ -25,58 +26,63 @@ namespace wsn {
 
         TEST(NotificationTest, Subscribe) {
             MockObserver observer;
-            EXPECT_CALL(observer, handleEvent(Event::NodeDeath, _)).Times(1);
+            const NodeDeathEvent ev(nullptr);
+            EXPECT_CALL(observer, handleEvent(_)).Times(1);
             auto &notificationCenter = NotificationCenter::getInstance();
-            notificationCenter.subscribe(Event::NodeDeath, &observer);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer);
+            notificationCenter.notify(ev);
         }
 
         TEST(NotificationTest, Unsubscribe) {
             MockObserver observer;
-            EXPECT_CALL(observer, handleEvent(Event::NodeDeath, _)).Times(1);
+            const NodeDeathEvent ev(nullptr);
+            EXPECT_CALL(observer, handleEvent(_)).Times(1);
             auto &notificationCenter = NotificationCenter::getInstance();
-            notificationCenter.subscribe(Event::NodeDeath, &observer);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
-            notificationCenter.unsubscribe(Event::NodeDeath, &observer);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer);
+            notificationCenter.notify(ev);
+            notificationCenter.unsubscribe(EventType::NodeDeath, &observer);
+            notificationCenter.notify(ev);
         }
 
         TEST(NotificationTest, UnsubscribeMultiObservers) {
             MockObserver observer;
             MockObserver observer2;
-            EXPECT_CALL(observer, handleEvent(Event::NodeDeath, _)).Times(1);
-            EXPECT_CALL(observer2, handleEvent(Event::NodeDeath, _)).Times(1);
+            const NodeDeathEvent ev(nullptr);
+            EXPECT_CALL(observer, handleEvent(_)).Times(1);
+            EXPECT_CALL(observer2, handleEvent(_)).Times(1);
             auto &notificationCenter = NotificationCenter::getInstance();
-            notificationCenter.subscribe(Event::NodeDeath, &observer);
-            notificationCenter.subscribe(Event::NodeDeath, &observer2);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
-            notificationCenter.unsubscribe(Event::NodeDeath);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer2);
+            notificationCenter.notify(ev);
+            notificationCenter.unsubscribe(EventType::NodeDeath);
+            notificationCenter.notify(ev);
         }
 
         TEST(NotificationCenter, SubscribeWithMultiObserversBySet) {
             MockObserver observer;
             MockObserver observer2;
             MockObserver observer3;
+            const NodeDeathEvent ev(nullptr);
             std::set<Observer*> observers {&observer, &observer2};
-            EXPECT_CALL(observer, handleEvent(Event::NodeDeath, _)).Times(1);
-            EXPECT_CALL(observer2, handleEvent(Event::NodeDeath, _)).Times(1);
-            EXPECT_CALL(observer3, handleEvent(Event::NodeDeath, _)).Times(1);
+            EXPECT_CALL(observer, handleEvent(_)).Times(1);
+            EXPECT_CALL(observer2, handleEvent(_)).Times(1);
+            EXPECT_CALL(observer3, handleEvent(_)).Times(1);
             auto &notificationCenter = NotificationCenter::getInstance();
-            notificationCenter.subscribe(Event::NodeDeath, observers);
-            notificationCenter.subscribe(Event::NodeDeath, &observer3);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
+            notificationCenter.subscribe(EventType::NodeDeath, observers);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer3);
+            notificationCenter.notify(ev);
         }
 
         TEST(NotificationCenter, SubscribeWithMultiObservers) {
             MockObserver observer;
             MockObserver observer2;
-            EXPECT_CALL(observer, handleEvent(Event::NodeDeath, _)).Times(1);
-            EXPECT_CALL(observer2, handleEvent(Event::NodeDeath, _)).Times(1);
+            const NodeDeathEvent ev(nullptr);
+            EXPECT_CALL(observer, handleEvent(_)).Times(1);
+            EXPECT_CALL(observer2, handleEvent(_)).Times(1);
             auto &notificationCenter = NotificationCenter::getInstance();
-            notificationCenter.subscribe(Event::NodeDeath, &observer);
-            notificationCenter.subscribe(Event::NodeDeath, &observer2);
-            notificationCenter.notify(Event::NodeDeath, nullptr);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer);
+            notificationCenter.subscribe(EventType::NodeDeath, &observer2);
+            notificationCenter.notify(ev);
         }
 
 

@@ -10,12 +10,32 @@ namespace wsn {
 
         struct Point {
 
-        public:
+            Point() = default;
             Point(float x, float y, float z);
 
             float x;
             float y;
             float z;
+
+            bool operator==(const Point &value) {
+                return (x == value.x) && (y == value.y) && (z == value.z);
+            }
+
+            bool operator!=(const Point &value) {
+                return !(*this == value);
+            }
+
+            Point& operator+=(const Point &value) {
+                x += value.x;
+                y += value.y;
+                z += value.z;
+            }
+
+            Point& operator/=(float value) {
+                x /= value;
+                y /= value;
+                z /= value;
+            }
         };
 
     }

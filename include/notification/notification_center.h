@@ -7,7 +7,7 @@
 #include <set>
 #include <mutex>
 #include "observer.h"
-#include "event.h"
+#include "../notification/event/event.h"
 
 
 namespace wsn {
@@ -28,20 +28,20 @@ namespace wsn {
 
             void operator=(NotificationCenter const &) = delete;
 
-            void subscribe(const Event &event, Observer *observer);
+            void subscribe(const EventType &event, Observer *observer);
 
-            void subscribe(const Event &event, std::set<Observer*> &observers);
+            void subscribe(const EventType &event, std::set<Observer*> &observers);
 
-            void unsubscribe(const Event &event, Observer *observer);
+            void unsubscribe(const EventType &event, Observer *observer);
 
-            void unsubscribe(const Event &event);
+            void unsubscribe(const EventType &event);
 
-            void notify(const Event &event, void const * const sender);
+            void notify(const Event &event);
 
 
         private:
             NotificationCenter() {};
-            std::map<Event, std::set<Observer*>> observers;
+            std::map<EventType, std::set<Observer*>> observers;
             std::mutex mutex;
 
 
