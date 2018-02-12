@@ -18,7 +18,7 @@ add_library(WSN SHARED src/model/node/node.cpp include/model/node/node.h src/mod
         include/model/data/data.h src/model/data/command.cpp include/model/data/command.h
         src/model/data/event_message.cpp include/model/data/event_message.h src/model/data/loop_command.cpp include/model/data/loop_command.h src/model/data/data.cpp
         include/protocol/network_protocol.h include/controller/physics/physics_controller.h src/util/euclid_geometry.cpp include/util/euclid_geometry.h
-        include/controller/physics/first_order_model_physics_controller.h src/model/node/radio_node.cpp include/model/node/radio_node.h src/notification/notification_center.cpp include/notification/notification_center.h include/notification/observer.h include/notification/event.h include/core/wsn_component.h)
+        include/controller/physics/first_order_model_physics_controller.h src/model/node/radio_node.cpp include/model/node/radio_node.h src/notification/notification_center.cpp include/notification/notification_center.h include/notification/observer.h include/notification/event/event.h include/core/wsn_component.h include/notification/event/node_death_event.h src/notification/event/node_death_event.cpp)
 
 set_target_properties(WSN PROPERTIES PREFIX "")
 

@@ -4,7 +4,7 @@
 
 
 
-#include "event.h"
+#include "../notification/event/event.h"
 
 namespace wsn {
 
@@ -15,7 +15,7 @@ namespace wsn {
 
         public:
             Observer() {}
-            virtual void handleEvent(Event event, const void* const sender) = 0;
+            virtual void handleEvent(const Event &event) = 0;
 
         };
     }

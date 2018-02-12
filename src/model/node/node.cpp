@@ -1,6 +1,7 @@
 
 
-#include <notification/notification_center.h>
+#include "notification/notification_center.h"
+#include "notification/event/node_death_event.h"
 #include "model/node/node.h"
 
 
@@ -63,7 +64,7 @@ namespace wsn {
         void model::Node::killNode() {
             if(alive) {
                 alive = false;
-                notificationCenter.notify(wsn::notification::Event::NodeDeath, this);
+                notificationCenter.notify(wsn::notification::NodeDeathEvent(this));
             }
         }
 
