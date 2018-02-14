@@ -35,10 +35,12 @@ set(euclid_geometry_test_source util/euclid_geometry_test.cpp)
 set(nodes_test_source model/nodes_test.cpp)
 set(notification_test_source notification/notification_test.cpp)
 set(wsn_controller_test_source controller/wsn_controller_test.cpp)
+set(random_location_nodes_factory factory/random_nodes_factory_test.cpp)
 add_executable(tests ${node_test_source}
                      ${physics_controller_test_source}
                      ${euclid_geometry_test_source}
                      ${nodes_test_source}
                      ${notification_test_source}
-                     ${wsn_controller_test_source})
+                     ${wsn_controller_test_source}
+                     ${random_location_nodes_factory})
 target_link_libraries(tests gtest gmock WSN)
