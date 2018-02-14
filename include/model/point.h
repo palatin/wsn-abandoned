@@ -3,6 +3,8 @@
 #ifndef WSN_POINT_H
 #define WSN_POINT_H
 
+#include <tuple>
+
 
 namespace wsn {
     namespace model {
@@ -17,24 +19,28 @@ namespace wsn {
             float y;
             float z;
 
-            bool operator==(const Point &value) {
+            inline bool operator==(const Point &value) {
                 return (x == value.x) && (y == value.y) && (z == value.z);
             }
 
-            bool operator!=(const Point &value) {
+            inline bool operator!=(const Point &value) {
                 return !(*this == value);
             }
 
-            Point& operator+=(const Point &value) {
+            inline Point& operator+=(const Point &value) {
                 x += value.x;
                 y += value.y;
                 z += value.z;
             }
 
-            Point& operator/=(float value) {
+            inline Point& operator/=(float value) {
                 x /= value;
                 y /= value;
                 z /= value;
+            }
+
+            friend inline bool operator<(const Point &first, const Point &second) {
+                return std::tie(first.x, first.y, first.z) < std::tie(second.x, second.y, second.z);
             }
         };
 
