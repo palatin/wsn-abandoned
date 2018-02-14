@@ -47,7 +47,7 @@ namespace wsn {
 
             Node(unsigned long id, Point location, double energy, float memoryLimit);
             Node(Node &&node) noexcept;
-            ~Node();
+            virtual ~Node();
 
             unsigned long getID() const;
             Point getLocation() const;
