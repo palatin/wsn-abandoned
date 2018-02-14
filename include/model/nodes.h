@@ -49,6 +49,15 @@ namespace wsn {
                 return *nodes.at(number);
             }
 
+            std::vector<Node*> getList() {
+                std::vector<Node*> nodes(nodes.size());
+                for (unsigned int i = 0; i < nodes.size(); ++i) {
+                    nodes[i] = this->nodes.at(i).get();
+                }
+
+                return nodes;
+            }
+
         private:
             std::vector<std::unique_ptr<NodeType>> nodes;
 
