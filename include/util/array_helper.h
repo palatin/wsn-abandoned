@@ -19,7 +19,7 @@ namespace wsn {
             static std::tuple<unsigned long, T*> getSmallestElement(T *array, unsigned long arrlen);
 
             template<typename T>
-            static std::tuple<unsigned long, T*> getBiggestElement(T *array, unsigned long arrlen);
+            static std::tuple<unsigned long, T*> getLargestElement(T *array, unsigned long arrlen);
 
         };
 
@@ -37,7 +37,7 @@ namespace wsn {
 
             for (unsigned int i = 1; i < arrlen; i++, arrcopyPtr++) {
                 if (*smallest > *arrcopyPtr) {
-                    smallest = array;
+                    smallest = arrcopyPtr;
                     index = i;
                 }
             }
@@ -47,7 +47,7 @@ namespace wsn {
         }
 
         template<typename T>
-        std::tuple<unsigned long, T*> ArrayHelper::getBiggestElement(T *array, unsigned long  arrlen) {
+        std::tuple<unsigned long, T*> ArrayHelper::getLargestElement(T *array, unsigned long arrlen) {
 
             if (arrlen < 1)
                 throw std::invalid_argument("empty array");
@@ -59,8 +59,8 @@ namespace wsn {
             unsigned long  index = 0;
 
             for (unsigned int i = 1; i < arrlen; i++, arrcopyPtr++) {
-                if (*biggest < *array) {
-                    biggest = array;
+                if (*biggest < *arrcopyPtr) {
+                    biggest = arrcopyPtr;
                     index = i;
                 }
             }
