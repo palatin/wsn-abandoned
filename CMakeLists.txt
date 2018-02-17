@@ -21,7 +21,8 @@ add_library(WSN SHARED src/model/node/node.cpp include/model/node/node.h src/mod
         include/controller/physics/first_order_model_physics_controller.h src/model/node/radio_node.cpp include/model/node/radio_node.h src/notification/notification_center.cpp
         include/notification/notification_center.h include/notification/observer.h include/notification/event/event.h include/core/wsn_component.h
         include/notification/event/node_death_event.h src/notification/event/node_death_event.cpp include/factory/nodes_factory.h src/factory/random_location_nodes_factory.cpp
-        include/factory/random_location_nodes_factory.h include/tools/clustering/clustering.h)
+        include/factory/random_location_nodes_factory.h include/tools/clustering/clustering.h include/tools/clustering/kmeans_clustering.h
+        src/tools/clustering/kmeans_clustering.cpp)
 
 set_target_properties(WSN PROPERTIES PREFIX "")
 
