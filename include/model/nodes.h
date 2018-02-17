@@ -64,6 +64,8 @@ namespace wsn {
 
         };
 
+        typedef std::vector<wsn::model::Node*> NodeList;
+
     }
 }
 
