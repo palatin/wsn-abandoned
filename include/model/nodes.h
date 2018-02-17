@@ -50,8 +50,8 @@ namespace wsn {
             }
 
             std::vector<Node*> getList() {
-                std::vector<Node*> nodes(nodes.size());
-                for (unsigned int i = 0; i < nodes.size(); ++i) {
+                std::vector<Node*> nodes(nodeCounts());
+                for (unsigned int i = 0; i < nodeCounts(); ++i) {
                     nodes[i] = this->nodes.at(i).get();
                 }
 

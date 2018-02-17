@@ -4,6 +4,7 @@
 #define WSN_GEOMETRY_H
 
 
+#include <memory>
 #include "../model/point.h"
 
 namespace wsn {
@@ -17,6 +18,8 @@ namespace wsn {
             virtual double distanceBetweenPoints(const wsn::model::Point &first, const wsn::model::Point &second) const = 0;
 
         };
+
+        typedef std::shared_ptr<wsn::util::Geometry> GeometryPtr;
     }
 }
 
