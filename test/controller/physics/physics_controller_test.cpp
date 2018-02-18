@@ -1,8 +1,8 @@
 
 #include <gtest/gtest.h>
-#include "../../include/controller/physics/physics_controller.h"
-#include "../../include/util/euclid_geometry.h"
-#include "../../include/model/node/node.h"
+#include "controller/physics/physics_controller.h"
+#include "util/euclid_geometry.h"
+#include "model/node/node.h"
 
 
 namespace wsn {
