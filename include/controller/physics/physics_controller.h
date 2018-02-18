@@ -28,7 +28,7 @@ namespace wsn {
             class PhysicsController {
 
             public:
-                explicit PhysicsController(std::shared_ptr<wsn::util::Geometry> geometryPtr) : geometryPtr(std::move(geometryPtr)) {}
+                explicit PhysicsController(wsn::util::GeometryPtr geometryPtr) : geometryPtr(std::move(geometryPtr)) {}
                 virtual ~PhysicsController() = default;
 
                 /// Method that calculate energy dissipation for sending data from sender to receiver
@@ -62,7 +62,7 @@ namespace wsn {
                     return receiver.receiveData(data);
                 }
 
-                const std::shared_ptr<wsn::util::Geometry> geometryPtr;
+                const wsn::util::GeometryPtr geometryPtr;
 
             };
 
