@@ -8,6 +8,8 @@
 #include <random>
 #include "nodes_factory.h"
 #include <algorithm>
+#include <model/node/physics/first_order_radio_transmitter.h>
+#include <model/node/sink.h>
 
 namespace wsn {
 
@@ -43,14 +45,14 @@ namespace wsn {
         class RandomNodesFactory : public NodesFactory<NodeType> {
 
         public:
-            explicit RandomNodesFactory(const wsn::factory::RandomNodeArea &area) : area(area), seed(time(NULL)) {
+            explicit RandomNodesFactory(unsigned long nodeCounts, const wsn::factory::RandomNodeArea &area) : nodeCounts(nodeCounts), area(area), seed(time(NULL)) {
             }
 
-            RandomNodesFactory(const wsn::factory::RandomNodeArea &area, long seed) : area(area), seed(seed) {
+            RandomNodesFactory(unsigned long nodeCounts, const wsn::factory::RandomNodeArea &area, long seed) : nodeCounts(nodeCounts), area(area), seed(seed) {
 
             }
 
-            std::shared_ptr<wsn::model::Nodes<NodeType>> buildNodes(unsigned long nodeCounts) override {
+            std::shared_ptr<wsn::model::Nodes> buildNodes() override {
 
                 std::vector<float> xs(nodeCounts);
                 std::vector<float> ys(nodeCounts);
@@ -69,16 +71,18 @@ namespace wsn {
                     zs[i] = z;
                 }
 
-                //TODO threads optimizations
+                //TODO threads optimizations, generics
                 std::random_shuffle(xs.begin(), xs.end());
                 std::random_shuffle(ys.begin(), ys.end());
                 std::random_shuffle(zs.begin(), zs.end());
 
-                auto nodes = std::make_shared<wsn::model::Nodes<NodeType>>();
-                for (int i = 0; i < nodeCounts; ++i) {
+                auto nodes = std::make_shared<wsn::model::Nodes>();
+                nodes->addNode(std::make_unique<wsn::model::Sink>(0, wsn::model::Point(xs[0], ys[0], zs[0])));
+                for (int i = 1; i < nodeCounts; ++i) {
 
-                    nodes->addNode(std::make_unique<NodeType>(i, wsn::model::Point(xs[i], ys[i], zs[i]), 0.5, 1000));
+                    nodes->addNode(std::make_unique<NodeType>(i, wsn::model::Point(xs[i], ys[i], zs[i]), 0.5, 1000, nullptr));
                 }
+
 
 
                 /*
@@ -98,6 +102,7 @@ namespace wsn {
         private:
             const RandomNodeArea area;
             const long seed;
+            const unsigned long nodeCounts;
 
             float calculatePossibleStepDistribution(float areaLength, unsigned long nodeCounts) {
                 return areaLength - nodeCounts >= 0 ? 1 : areaLength / nodeCounts;

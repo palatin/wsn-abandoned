@@ -14,7 +14,7 @@ namespace wsn {
         class NodeDeathEvent : public Event {
 
         public:
-            explicit NodeDeathEvent(const wsn::model::Node * const node);
+            explicit NodeDeathEvent(const wsn::model::Node *node);
             EventType getEventType() const override;
             const wsn::model::Node * const getDeathNode() const ;
 

@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 #include "node/node.h"
+#include "node/physics/transmitter.h"
+
 
 
 
@@ -15,21 +17,20 @@ namespace wsn {
     namespace model {
 
 
-        template <typename NodeType>
-        struct Nodes {
+        class Nodes {
 
         public:
 
             Nodes() = default;
 
-             explicit Nodes(std::vector<std::unique_ptr<NodeType>> &node) : nodes(std::move(nodes)) {}
+             explicit Nodes(std::vector<std::unique_ptr<Node>> &node) : nodes(std::move(nodes)) {}
 
             ~Nodes() {
 
             }
 
 
-            void addNode(std::unique_ptr<NodeType> node) {
+            void addNode(std::unique_ptr<Node> node) {
                 nodes.push_back(std::move(node));
             }
 
@@ -37,15 +38,15 @@ namespace wsn {
                 return nodes.size();
             }
 
-            NodeType& getNodeById(unsigned long id) {
+            Node& getNodeById(unsigned long id) {
                 return *nodes.at(id);
             }
 
-            NodeType &at(unsigned long number) {
+            Node &at(unsigned long number) {
                 return *nodes.at(number);
             }
 
-            const NodeType &at(unsigned long number) const {
+            const Node &at(unsigned long number) const {
                 return *nodes.at(number);
             }
 
@@ -59,12 +60,13 @@ namespace wsn {
             }
 
         private:
-            std::vector<std::unique_ptr<NodeType>> nodes;
+            std::vector<std::unique_ptr<Node>> nodes;
 
 
         };
 
         typedef std::vector<wsn::model::Node*> NodeList;
+        typedef std::shared_ptr<wsn::model::Nodes> NodesPtr;
 
     }
 }

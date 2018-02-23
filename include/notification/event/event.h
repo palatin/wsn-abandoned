@@ -8,7 +8,8 @@ namespace wsn {
     namespace notification {
 
         enum EventType {
-            NodeDeath
+            NodeDeath,
+            DataReceive
         };
 
         class Event {

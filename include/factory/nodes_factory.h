@@ -17,7 +17,7 @@ namespace wsn {
             NodesFactory() = default;
 
 
-            virtual std::shared_ptr<wsn::model::Nodes<NodeType>> buildNodes(unsigned long nodeCounts) = 0;
+            virtual std::shared_ptr<wsn::model::Nodes> buildNodes() = 0;
 
         };
     }

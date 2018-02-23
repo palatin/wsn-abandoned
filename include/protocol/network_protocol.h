@@ -10,7 +10,6 @@
 
 #include "../model/data/data.h"
 #include "../model/data/command.h"
-#include "../controller/physics/physics_controller.h"
 #include "../core/wsn_component.h"
 #include "../model/nodes.h"
 
@@ -40,35 +39,32 @@ namespace wsn {
 
 
 
-            template <typename NodeType>
+
             class NetworkProtocol : public wsn::core::WSNComponent {
 
 
 
             public:
-                typedef std::shared_ptr<wsn::model::Nodes<NodeType>> NodesPtr;
 
-                explicit NetworkProtocol(std::shared_ptr<wsn::controller::physics::PhysicsController<NodeType>> physicsController, NetworkProtocol::NodesPtr nodesPtr)
-                        : physicsControllerPtr(std::move(physicsController)), nodes(std::move(nodesPtr)) {}
+
+                explicit NetworkProtocol(wsn::model::NodesPtr nodesPtr) : nodes(nodesPtr) {}
                 virtual ~NetworkProtocol() = default;
 
                 virtual void update() = 0;
 
 
             protected:
-                NodesPtr nodes;
+                wsn::model::NodesPtr nodes;
 
-                bool sendData(const Data &data, NodeType &sender, NodeType &receiver) const {
-                    return this->physicsControllerPtr.get()->sendData(data, sender, receiver);
+
+                bool sendData(const Data &data, Node &sender, Node &receiver) const {
+                    return sender.sendData(data, receiver);
                 }
 
-                bool receiveData(const Data &data, NodeType &receiver) const {
-                    return this->physicsControllerPtr.get()->receiveData(data, receiver);
+                bool receiveData(const Data &data, Node &receiver) const {
+                    return receiver.receiveData(data);
                 }
 
-                const Links& getLinks(const Node &node) const {
-                    return node.getLinks();
-                }
 
                 bool addLink(Node &node, const wsn::model::NodeLink &link) {
                     return node.addLink(link);
@@ -78,18 +74,7 @@ namespace wsn {
                     return node.removeLink(position);
                 }
 
-                const Commands& getCommands(const Node &node) const {
-                    return node.getCommands();
-                }
 
-                const DataList& getData(const Node &node) const {
-                    return node.getData();
-                }
-
-
-
-            private:
-                const std::shared_ptr<wsn::controller::physics::PhysicsController<NodeType>> physicsControllerPtr;
             };
 
 
