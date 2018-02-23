@@ -30,7 +30,6 @@ include_directories("${gtest_SOURCE_DIR}/include")
 #test linking area
 
 set(node_test_source model/node/node_test.cpp)
-set(physics_controller_test_source controller/physics/physics_controller_test.cpp)
 set(euclid_geometry_test_source util/euclid_geometry_test.cpp)
 set(nodes_test_source model/nodes_test.cpp)
 set(notification_test_source notification/notification_test.cpp)
@@ -39,7 +38,6 @@ set(random_location_nodes_factory factory/random_nodes_factory_test.cpp)
 set(array_helper_source util/array_helper_test.cpp)
 set(kmeans_clustering_source tools/clustering/kmeans_clustering_test.cpp)
 add_executable(tests ${node_test_source}
-                     ${physics_controller_test_source}
                      ${euclid_geometry_test_source}
                      ${nodes_test_source}
                      ${notification_test_source}

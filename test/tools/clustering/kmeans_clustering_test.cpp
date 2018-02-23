@@ -15,9 +15,9 @@ namespace wsn {
 
             TEST(KMeansClusteringTest, ClusterCount) {
 
-                wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
+                wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(1000, wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
 
-                auto nodes = nodesFactory.buildNodes(1000);
+                auto nodes = nodesFactory.buildNodes();
 
 
                 unsigned int chs = 15;
@@ -32,9 +32,9 @@ namespace wsn {
 
             TEST(KMeansClusteringTest, UniqueCHs) {
 
-                wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
+                wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(1000, wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
 
-                auto nodes = nodesFactory.buildNodes(1000);
+                auto nodes = nodesFactory.buildNodes();
 
 
                 unsigned int chs = 15;

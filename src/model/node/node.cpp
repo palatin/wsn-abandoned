@@ -2,15 +2,15 @@
 
 #include "notification/notification_center.h"
 #include "notification/event/node_death_event.h"
-#include "model/node/node.h"
-
+#include <model/node/physics/transmitter.h>
 
 namespace wsn {
 
     namespace model {
 
 
-        Node::Node(unsigned long id, Point location, double energy, float memoryLimit) : id(id), location(location), energy(energy), memoryLimit(memoryLimit) {
+        Node::Node(unsigned long id, Point location, double energy, float memoryLimit, TransmitterPtr transmitterPtr) :
+                id(id), location(location), energy(energy), memoryLimit(memoryLimit), transmitter(std::move(transmitterPtr)) {
 
         }
 
@@ -25,9 +25,6 @@ namespace wsn {
 
         }
 
-        Node::~Node() {
-
-        }
 
         unsigned long Node::getID() const {
             return id;
@@ -80,7 +77,11 @@ namespace wsn {
 
         bool Node::receiveData(const Data &data) {
 
-            return this->processData(data);
+            return transmitter->receiveData(data, *this) && this->processData(data);
+        }
+
+        bool Node::sendData(const Data &data, const Node &receiver) {
+            return transmitter->sendData(data, *this, receiver);
         }
 
 
@@ -102,10 +103,10 @@ namespace wsn {
 
 
         bool Node::canStore(double dataSize) const {
-            return dataSize + currentMemory <= memoryLimit;
+            return dataSize + getCurrentMemory() <= getMemoryLimit();
         }
 
-        const Links& Node::getLinks() const {
+        Links Node::getLinks() const {
             return links;
         }
 
@@ -114,13 +115,21 @@ namespace wsn {
             currentMemory -= NODE_LINK_MEMORY;
         }
 
-        const Commands& Node::getCommands() const{
+        Commands Node::getCommands() const{
             return commands;
         }
 
-        const DataList& Node::getData() const {
+        DataList Node::getData() const {
             return dataDeque;
         }
+
+        bool Node::spendEnergy(double energy) {
+
+            bool enoughEnergy = getEnergy() >= energy;
+            setEnergy(enoughEnergy ? getEnergy() - energy : 0);
+            return enoughEnergy;
+        }
+
 
 
 
