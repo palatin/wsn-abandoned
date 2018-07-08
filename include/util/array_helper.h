@@ -16,15 +16,20 @@ namespace wsn {
         public:
 
             template<typename T>
-            static std::tuple<unsigned long, T*> getSmallestElement(T *array, unsigned long arrlen);
+            static std::pair<unsigned long, T*> getSmallestElement(T *array, unsigned long arrlen);
 
             template<typename T>
-            static std::tuple<unsigned long, T*> getLargestElement(T *array, unsigned long arrlen);
+            static std::pair<unsigned long, T*> getLargestElement(T *array, unsigned long arrlen);
+
+            template<typename T>
+            void normalize(T *array, unsigned long arrlen);
 
         };
 
+
+
         template<typename T>
-        std::tuple<unsigned long, T*> ArrayHelper::getSmallestElement(T *array, unsigned long  arrlen) {
+        std::pair<unsigned long, T*> ArrayHelper::getSmallestElement(T *array, unsigned long  arrlen) {
 
             if (arrlen < 1)
                 throw std::invalid_argument("empty array");
@@ -41,13 +46,13 @@ namespace wsn {
                     index = i;
                 }
             }
-            auto value = std::make_tuple(index, smallest);
-            return value;
+
+            return std::pair(index, smallest);;
 
         }
 
         template<typename T>
-        std::tuple<unsigned long, T*> ArrayHelper::getLargestElement(T *array, unsigned long arrlen) {
+        std::pair<unsigned long, T*> ArrayHelper::getLargestElement(T *array, unsigned long arrlen) {
 
             if (arrlen < 1)
                 throw std::invalid_argument("empty array");
@@ -64,9 +69,24 @@ namespace wsn {
                     index = i;
                 }
             }
-            auto value = std::make_tuple(index, biggest);
-            return value;
 
+            return std::pair(index, biggest);
+
+        }
+
+        template<typename T>
+        void ArrayHelper::normalize(T *array, unsigned long arrlen) {
+
+            auto max = *getLargestElement(array, arrlen).second;
+
+            auto min = *getSmallestElement(array, arrlen).second;
+
+            for (unsigned int i = 0; i < arrlen; i++, array++) {
+
+                *array = (*array - min) / (max - min);
+            }
+
+            
         }
     }
 }
