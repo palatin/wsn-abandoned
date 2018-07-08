@@ -37,6 +37,7 @@ set(wsn_controller_test_source controller/wsn_controller_test.cpp)
 set(random_location_nodes_factory factory/random_nodes_factory_test.cpp)
 set(array_helper_source util/array_helper_test.cpp)
 set(kmeans_clustering_source tools/clustering/kmeans_clustering_test.cpp)
+set(ga_clustering_source tools/clustering/ga_test.cpp)
 add_executable(tests ${node_test_source}
                      ${euclid_geometry_test_source}
                      ${nodes_test_source}
@@ -44,5 +45,6 @@ add_executable(tests ${node_test_source}
                      ${wsn_controller_test_source}
                      ${random_location_nodes_factory}
                      ${array_helper_source}
-                     ${kmeans_clustering_source})
+                     ${kmeans_clustering_source}
+                     ${ga_clustering_source})
 target_link_libraries(tests gtest gmock WSN)

@@ -17,12 +17,11 @@ FirstOrderRadioTransmitter::FirstOrderRadioTransmitter(wsn::util::GeometryPtr ge
 
 bool FirstOrderRadioTransmitter::sendData(const Data &data,  Node &sender, const Node &receiver) const {
     double d0 = sqrt(Efc / Eamp);
-    double d = geometryPtr.get()->distanceBetweenPoints(sender.getLocation(), receiver.getLocation());
-    double L = data.getDataLength();
-    double Etx = Eelec + L * Efc * pow(d, d < d0 ? 2 : 4);
+    double d = geometryPtr->distanceBetweenPoints(sender.getLocation(), receiver.getLocation());
+    double Etx = Eelec + data.getDataLength() * Efc * pow(d, d < d0 ? 2 : 4);
     return spendEnergy(sender, Etx);
 }
 
 bool FirstOrderRadioTransmitter::receiveData(const Data &data, Node &receiver) const {
-    return false;
+    return spendEnergy(receiver, data.getDataLength() * Eelec);
 }

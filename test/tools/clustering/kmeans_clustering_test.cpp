@@ -4,6 +4,7 @@
 #include <factory/random_location_nodes_factory.h>
 #include <tools/clustering/kmeans_clustering.h>
 #include <util/euclid_geometry.h>
+#include <tools/clustering/ga/dbi_fitness.h>
 
 namespace wsn {
 
@@ -15,7 +16,7 @@ namespace wsn {
 
             TEST(KMeansClusteringTest, ClusterCount) {
 
-                wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(1000, wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
+                wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(10000, wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
 
                 auto nodes = nodesFactory.buildNodes();
 
@@ -30,7 +31,7 @@ namespace wsn {
                 delete(kMeansClustering);
             }
 
-            TEST(KMeansClusteringTest, UniqueCHs) {
+            TEST(KMeansClusteringTest, UniqueClusters) {
 
                 wsn::factory::RandomNodesFactory<wsn::model::Node> nodesFactory(1000, wsn::factory::RandomNodeArea(wsn::model::Point(0,0,0), wsn::model::Point(100,100,0)));
 
@@ -44,14 +45,14 @@ namespace wsn {
 
                 bool unique = true;
 
-                for (unsigned int i = 0; i < chs - 1; ++i) {
-                    if(clusters.at(i).CH == clusters.at(i+1).CH)
-                        unique = false;
-                    for(auto node1 : clusters.at(i).nodes) {
-                        for(auto node2 : clusters.at(i+1).nodes) {
-                            if(node1 == node2)
-                                unique = false;
-                        }
+                std::set<unsigned long> nodes_indexes;
+
+                for(unsigned int i = 0; i < clusters.size(); i++ ) {
+                    auto &cluster = clusters.clusterAt(i);
+
+                    for(auto &node : cluster) {
+                        if(!nodes_indexes.insert(node.second).second)
+                            unique = false;
                     }
                 }
 

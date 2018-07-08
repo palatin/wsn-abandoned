@@ -13,4 +13,5 @@ bool wsn::model::Sink::sendData(const wsn::model::Data &data, const wsn::model::
 
 bool wsn::model::Sink::receiveData(const wsn::model::Data &data) {
     wsn::notification::NotificationCenter::getInstance().notify(wsn::notification::DataReceiveEvent(this, data));
+    return true;
 }
