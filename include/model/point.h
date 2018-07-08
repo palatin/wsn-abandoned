@@ -27,13 +27,13 @@ namespace wsn {
                 return !(*this == value);
             }
 
-            inline Point& operator+=(const Point &value) {
+            inline void operator+=(const Point &value) {
                 x += value.x;
                 y += value.y;
                 z += value.z;
             }
 
-            inline Point& operator/=(float value) {
+            inline void operator/=(float value) {
                 x /= value;
                 y /= value;
                 z /= value;
